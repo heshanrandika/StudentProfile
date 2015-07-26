@@ -24,12 +24,20 @@ public class StudentPersist {
 	}
 	
 
-	public void saveStudent(Student newStudent){
-		mongoOperation.save(newStudent);
+	public boolean saveStudent(Student newStudent){
+		Query searchUserQuery = new Query(Criteria.where("emailAddress").is(newStudent.getEmailAddress()));
+		Student exsistStudent = mongoOperation.findOne(searchUserQuery, Student.class);
+		if(exsistStudent == null){
+			mongoOperation.save(newStudent);
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
  
 	public Student getStudent(Student stdnt){
-		Query searchUserQuery = new Query(Criteria.where("emailAddress").is(stdnt.getEmailAddress())); //TODO
+		Query searchUserQuery = new Query(Criteria.where("emailAddress").is(stdnt.getEmailAddress()));
 		Student getStudent = mongoOperation.findOne(searchUserQuery, Student.class);
 		return getStudent;
 	}

@@ -24,8 +24,7 @@ public class StudentController {
 
 	@RequestMapping(value = "/saveStudent", method = RequestMethod.POST)
 	public boolean addStudent(@RequestBody Student stdnt){
-		studentPersist.saveStudent(stdnt);;
-		return true;
+		return studentPersist.saveStudent(stdnt);
 	}
 	
 	@RequestMapping(value = "/getStudent", method = RequestMethod.POST)
